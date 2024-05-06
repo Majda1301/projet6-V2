@@ -33,7 +33,3 @@ function child_menu_link_class($attrs)
 	return $attrs;
 }
 add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
-register_nav_menu('header', 'En tête du menu');
-register_nav_menu('footer', 'Pied de page');
-add_filter('nav_menu_css_class', 'child_menu_class');
-add_filter('nav_menu_link_attributes', 'child_menu_link_class');

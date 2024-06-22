@@ -11,7 +11,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
+?>
 /**
  * Define Constants
  */
@@ -183,3 +183,18 @@ require_once ASTRA_THEME_DIR . 'inc/core/markup/class-astra-markup.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-filters.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-hooks.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-functions.php';
+
+<?php
+// Ajoute un filtre pour modifier les éléments du menu de navigation
+add_filter( 'wp_nav_menu_items', 'add_admin_link', 10, 2 );
+
+function add_admin_link( $items, $args ) {
+    // Vérifie si l'utilisateur est connecté et si le menu correspond à l'emplacement 'menu-1'
+    if ( is_user_logged_in() && $args->theme_location == 'menu-1' ) {
+        // Ajoute un nouvel élément de menu pour l'administration
+        $items .= '<li class="menu-item"><a href="' . esc_url( get_admin_url() ) . '">Admin</a></li>';
+    }
+    // Retourne les éléments de menu modifiés
+    return $items;
+}
+?>
